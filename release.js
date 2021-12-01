@@ -58,6 +58,7 @@ module.exports = async function ({ github, context, inputs, callApi }) {
   // TODO: What if PR was closed, reopened and then merged. The draft release would have been deleted!
 
   try {
+    throw new Error('test')
     await callApi({
       endpoint: 'release',
       method: 'PATCH',
@@ -66,21 +67,18 @@ module.exports = async function ({ github, context, inputs, callApi }) {
         releaseId: id,
       },
     })
-
-    const syncVersions = /true/i.test(inputs['sync-semver-tags'])
-
-    if (syncVersions) {
-      const parsed = semver.parse(version)
-      const major = parsed.major
-      const minor = parsed.minor
-
-      await tagVersionInGit(`v${major}`)
-
-      if (minor !== 0) {
-        await tagVersionInGit(`v${major}.${minor}`)
-      }
-    }
   } catch (err) {
     core.setFailed(`Unable to publish the release ${err.message}`)
+  }
+
+  const syncVersions = /true/i.test(inputs['sync-semver-tags'])
+
+  if (syncVersions) {
+    const parsed = semver.parse(version)
+    const major = parsed.major
+    const minor = parsed.minor
+
+    if (major !== 0) await tagVersionInGit(`v${major}`)
+    if (minor !== 0) await tagVersionInGit(`v${major}.${minor}`)
   }
 }
