@@ -29,8 +29,6 @@ const getPRBody = (template, { newVersion, draftRelease, inputs }) => {
     tagsToUpdate: tagsToBeUpdated.join(', '),
   }
 
-
-
   return template({
     releaseMeta,
     draftRelease,
