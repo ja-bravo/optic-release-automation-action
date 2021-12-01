@@ -70,6 +70,7 @@ The above workflow (when manually triggered) will
 | `actor-email`  | No       | The email you want to see in the new release commit. <br /> (_Default: User who triggered the release workflow_)                                                                           |
 | `npm-tag`      | No       | If you want to release to the Npm with a custom tag, say `next`. <br /> (_Default: `latest`_)                                                                                              |
 | `api-url`      | No       | GitHub App URL. You wouldn't need to set this unless you're deploying a custom GitHub app instead of [optic-release-automation](https://github.com/apps/optic-release-automation). <br /> (_Default: `https://optic-release-automation-ocrlhra4va-ue.a.run.app/`_)                                                                                              |
+| `sync-semver-tags`      | No       | If you want to keep the major and minor versions tag synced to the latest appropriate commit <br /> (_Default: `false`_)                                                                                              |
 
 ## Motivation
 
