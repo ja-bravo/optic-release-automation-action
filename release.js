@@ -81,6 +81,7 @@ module.exports = async function ({ github, context, inputs, callApi }) {
       const major = parsed.major
       const minor = parsed.minor
 
+      console.log('Tagging')
       if (major !== 0) await tagVersionInGit(`v${major}`)
       if (minor !== 0) await tagVersionInGit(`v${major}.${minor}`)
     }
