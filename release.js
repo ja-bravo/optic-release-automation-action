@@ -67,9 +67,11 @@ module.exports = async function ({ github, context, inputs, callApi }) {
       },
     })
 
-    const syncMajor = /true/i.test(inputs['sync-major'])
 
-    if (syncMajor) {
+    throw new Error('Oops')
+    const updateSemver = /true/i.test(inputs['update-semver'])
+
+    if (updateSemver) {
       const parsed = semver.parse(version)
       const major = parsed.major
       const minor = parsed.minor
