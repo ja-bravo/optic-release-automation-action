@@ -26,7 +26,7 @@ const getPRBody = (template, { newVersion, draftRelease, inputs }) => {
     version: newVersion,
     npmTag: inputs['npm-tag'],
     opticUrl: inputs['optic-url'],
-    tags: tagsToBeUpdated.join(', '),
+    tagsToUpdate: tagsToBeUpdated.join(', '),
   }
 
 
