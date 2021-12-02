@@ -42,7 +42,7 @@ inputs:
     default: "false"
 
 runs:
-  using: 'node16'
+  using: 'composite'
   steps:
     - uses: actions/checkout@v2
     - run: |
