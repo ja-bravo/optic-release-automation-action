@@ -41,10 +41,8 @@ exports.tagVersionInGit = async function (version) {
   await run('git', ['push', 'origin', `:refs/tags/${version}`])
   await run('git', [
     'tag',
-    '-fa',
-    `"${version}"`,
-    '-m',
-    `"Update tag ${version}"`,
+    '-f',
+    `"${version}"`
   ])
   await run('git', ['push', 'origin', `--tags`])
 }
