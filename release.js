@@ -49,14 +49,11 @@ module.exports = async function ({ github, context, inputs }) {
 
   if (inputs['npm-token']) {
     if (opticToken) {
-      console.log('Requesting OTP from Optic...')
       const otp = await run('curl', ['-s', `${opticUrl}${opticToken}`])
       await run('npm', ['publish', '--otp', otp, '--tag', npmTag])
     } else {
       await run('npm', ['publish', '--tag', npmTag])
     }
-
-    console.log('Published to Npm')
   }
 
   try {
