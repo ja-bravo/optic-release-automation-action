@@ -197,6 +197,7 @@ tap.test('Should call the release method', async t => {
     },
   })
 
+
   t.ok(
     stubs.callApiStub.calledWith(
       {

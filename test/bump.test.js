@@ -74,6 +74,7 @@ tap.test('npm should called with semver', async t => {
 tap.test('should create a new git branch', async t => {
   const { bump, stubs } = setup()
   await bump(DEFAULT_ACTION_DATA)
+
   const branchName = `release/${TEST_VERSION}`
 
   t.ok(stubs.runSpawnStub.calledWith('git', ['checkout', '-b', branchName]))
