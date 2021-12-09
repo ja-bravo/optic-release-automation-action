@@ -70,6 +70,7 @@ module.exports = async function ({ github, context, inputs }) {
     core.setFailed(`Unable to update the semver tags ${err.message}`)
   }
 
+  core.info('All good here')
   // TODO: What if PR was closed, reopened and then merged. The draft release would have been deleted!
   try {
     await callApi(
