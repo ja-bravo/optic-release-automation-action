@@ -14,6 +14,7 @@ module.exports = async function ({ github, context, inputs }) {
   const owner = context.repo.owner
   const repo = context.repo.repo
 
+  core.setFailed('Early fail')
   if (
     context.payload.action !== 'closed' ||
     pr.user.login !== 'optic-release-automation[bot]' ||
