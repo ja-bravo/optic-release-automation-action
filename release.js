@@ -39,8 +39,10 @@ module.exports = async function ({ github, context, inputs }) {
   const run = runSpawn()
   if (!pr.merged) {
     const branchName = `release/${version}`
-    const [branchPromise, releasePromise] = await Promise.allSettled([
-      run('git', ['push', 'origin', '--delete', branchName]),
+    const promises = await Promise.allSettled([
+      new Promise((resolve, reject) =>
+        reject(new Error('Git error something something'))
+      ),
       github.rest.repos.deleteRelease({
         owner,
         repo,
@@ -48,19 +50,16 @@ module.exports = async function ({ github, context, inputs }) {
       }),
     ])
 
-    if (
-      branchPromise.status === 'rejected' &&
-      releasePromise.status === 'rejected'
-    ) {
-      logError(branchPromise.reason.message)
-      logError(releasePromise.reason.message)
-      core.setFailed(`Could not delete the branch or the release.`)
-    } else if (branchPromise.status === 'rejected') {
-      logError(branchPromise.reason.message)
-      core.setFailed(`Could not delete branch ${branchName}`)
-    } else if (releasePromise.status === 'rejected') {
-      logError(releasePromise.reason.message)
-      core.setFailed(`Could not delete release ${id}`)
+    const errors = promises
+      .reduce((prev, curr) => [...prev, curr.reason?.message], [])
+      .filter(Boolean)
+
+    if (errors.length) {
+      core.setFailed(
+        `Something went wrong while deleting the branch or release. \n Errors: ${errors.join(
+          '\n'
+        )}`
+      )
     }
 
     // Both the branch and release have been deleted, return early
