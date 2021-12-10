@@ -43,11 +43,9 @@ module.exports = async function ({ github, context, inputs }) {
       new Promise((resolve, reject) =>
         reject(new Error('Git error something something'))
       ),
-      github.rest.repos.deleteRelease({
-        owner,
-        repo,
-        release_id: id,
-      }),
+      new Promise((resolve, reject) =>
+        reject(new Error('Git error something something'))
+      ),
     ])
 
     const errors = promises
