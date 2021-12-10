@@ -51,14 +51,14 @@ module.exports = async function ({ github, context, inputs }) {
     ])
 
     const errors = promises
-      .reduce((prev, curr) => [...prev, curr.reason?.message], [])
+      .reduce((prev, curr) => [...prev, curr.reason], [])
       .filter(Boolean)
 
     if (errors.length) {
       core.setFailed(
-        `Something went wrong while deleting the branch or release. \n Errors: ${errors.join(
-          '\n'
-        )}`
+        `Something went wrong while deleting the branch or release. \n Errors: ${errors
+          .map(e => e.message)
+          .join('\n')}`
       )
     }
 
