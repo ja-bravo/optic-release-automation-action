@@ -2,6 +2,16 @@ name: 'Auto Publish'
 
 description: 'Automatically publish to NPM and create Github release'
 
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+        
 inputs:
   github-token:
     description: "Your Github token, it's already available to your Github action"
