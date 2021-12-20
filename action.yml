@@ -2,6 +2,20 @@ name: 'Auto Publish'
 
 description: 'Automatically publish to NPM and create Github release'
 
+
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: "The semver to use for this new release"
+        required: true
+        type: choice
+        default: "patch"
+        options:
+          - patch
+          - minor
+          - major
+
 inputs:
   github-token:
     description: "Your Github token, it's already available to your Github action"
@@ -27,10 +41,6 @@ inputs:
     description: "The email you want to see in the new release commit"
     required: false
     default: "actions@users.noreply.github.com"
-  semver:
-    description: "The semver to use for this new release"
-    required: true
-    default: "patch"
   npm-tag:
     description: "If you want to release to the Npm with a custom tag, pass it here"
     required: false
